@@ -44,7 +44,90 @@ function FavoriteColor() {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<FavoriteColor />);\n`;
-//const sampleCode3 =``;
+    const sampleCode4 = `function Button() {
+  const theme = useContext(ThemeContext);
+  // ...
+}
+`;
+
+    const sampleCode5 = `function Form() {
+  const inputRef = useRef(null);
+  // ...
+}
+`;
+
+    const sampleCode6 = `function TodoList({ todos, tab, theme }) {
+  const visibleTodos = useMemo(() => filterTodos(todos, tab), [todos, tab]);
+  // ...
+}
+`;
+
+    const sampleCode9 = `const [state, dispatch] = useReducer(reducer, initialArg, init?)
+`;
+
+    const sampleCode10 = `import { useReducer } from 'react';
+
+function reducer(state, action) {
+  // ...
+}
+
+function MyComponent() {
+  const [state, dispatch] = useReducer(reducer, { age: 42 });
+  // ...
+}
+`;
+
+    const sampleCode7 = `import { useReducer } from 'react';
+
+function reducer(state, action) {
+  // ...
+}
+
+function MyComponent() {
+  const [state, dispatch] = useReducer(reducer, { age: 42 });
+  // ...
+}
+`;
+
+    const sampleCode8 = `function handleClick() {
+  dispatch({ type: 'incremented_age' });
+}
+`;
+
+    const sampleCodeUseMemo = `
+import React, { useMemo } from 'react';
+
+function MyComponent({ a, b }) {
+  const computedValue = useMemo(() => {
+    return a + b;
+  }, [a, b]);
+
+  return <div>{computedValue}</div>;
+}
+`;
+    const sampleCodeUseMemoReference = `
+import React, { useMemo } from 'react';
+
+function ExpensiveComponent({ data }) {
+  const processedData = useMemo(() => {
+    return data.map(item => item * 2);
+  }, [data]);
+
+  return <div>{processedData.join(', ')}</div>;
+}
+`;
+    const sampleCodeUseMemoUsage = `
+import React, { useMemo } from 'react';
+
+function Example({ items }) {
+  const total = useMemo(() => {
+    return items.reduce((acc, item) => acc + item, 0);
+  }, [items]);
+
+  return <div>Total: {total}</div>;
+}
+`;
+
     const sampleCode3 = `
 import React, { useState, useEffect } from 'react';
 
@@ -171,8 +254,12 @@ export default ExampleComponent;
                     <h2>useContext</h2>
                 </AccordionSummary>
                 <AccordionDetails>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+                    <p style={{fontSize:20}}> Context lets a component receive information from distant parents without passing it as props. </p>
+
+                    <p style={{fontSize:20}}> For example, your app’s top-level component can pass the current UI theme to all components below, no matter how deep. </p>
+                    <p style={{fontSize:20}}> >useContext - reads and subscribes to a context. </p>
+                    <CodeSnippet code={sampleCode4}  language="javascript" />
+
                 </AccordionDetails>
                 <AccordionActions>
                     <Button>Cancel</Button>
@@ -188,8 +275,17 @@ export default ExampleComponent;
                     <h2>useRef</h2>
                 </AccordionSummary>
                 <AccordionDetails>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+                    <p style={{fontSize:20}}> Refs let a component hold some information that isn’t used for rendering, like a DOM node or a timeout ID. </p>
+                    <p style={{fontSize:20}}> Unlike with state, updating a ref does not re-render your component. </p>
+                    <p style={{fontSize:20}}> Refs are an “escape hatch” from the React paradigm. </p>
+                    <p style={{fontSize:20}}> They are useful when you need to work with non-React systems, such as the built-in browser APIs. </p>
+
+                    <p style={{fontSize:20}}> >useRef - declares a ref. You can hold any value in it, but most often it’s used to hold a DOM node. </p>
+                    <p style={{fontSize:20}}> >useImperativeHandle - lets you customize the ref exposed by your component. This is rarely used. </p>
+
+                    <div>
+                        <CodeSnippet code={sampleCode5}  language="javascript"/>
+                    </div>
                 </AccordionDetails>
                 <AccordionActions>
                     <Button>Cancel</Button>
@@ -205,8 +301,52 @@ export default ExampleComponent;
                     <h2>useReducer</h2>
                 </AccordionSummary>
                 <AccordionDetails>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+                    <p style={{fontSize:20}}> useReducer is a React Hook that lets you add a reducer to your component. </p>
+
+                    <div>
+                        <CodeSnippet code={sampleCode9}  language="javascript"/>
+                    </div>
+
+                    <h3 style={{fontStyle:"bold", fontSize:24}}>Reference </h3>
+                    <h3 style={{fontStyle:"bold", fontSize:24}}>useReducer(reducer, initialArg, init?)</h3>
+                    <p style={{fontSize:20}}> Call useReducer at the top level of your component to manage its state with a reducer. </p>
+
+                    <div>
+                        <CodeSnippet code={sampleCode10}  language="javascript"/>
+                    </div>
+                    <h4 style={{fontStyle:"bold", fontSize:24}}>Parameters </h4>
+                    <p style={{fontSize:20}}> >reducer: The reducer function that specifies how the state gets updated. It must be pure, should take the state and action as arguments, and should return the next state. State and action can be of any types. </p>
+                    <p style={{fontSize:20}}> >initialArg: The value from which the initial state is calculated. It can be a value of any type. How the initial state is calculated from it depends on the next init argument. </p>
+                    <p style={{fontSize:20}}> >optional init: The initializer function that should return the initial state. If it’s not specified, the initial state is set to initialArg. Otherwise, the initial state is set to the result of calling init(initialArg). </p>
+
+                    <h4 style={{fontStyle:"bold", fontSize:24}}>Returns </h4>
+                    <p style={{fontSize:20}}> useReducer returns an array with exactly two values: </p>
+                    <p style={{fontSize:20}}> 1.The current state. During the first render, it’s set to init(initialArg) or initialArg (if there’s no init). </p>
+                    <p style={{fontSize:20}}> 2.The dispatch function that lets you update the state to a different value and trigger a re-render. </p>
+
+                    <h4 style={{fontStyle:"bold", fontSize:24}}>Caveats </h4>
+                    <p style={{fontSize:20}}> >useReducer is a Hook, so you can only call it at the top level of your component or your own Hooks. You can’t call it inside loops or conditions. If you need that, extract a new component and move the state into it. </p>
+                    <p style={{fontSize:20}}> >In Strict Mode, React will call your reducer and initializer twice in order to help you find accidental impurities. This is development-only behavior and does not affect production. If your reducer and initializer are pure (as they should be), this should not affect your logic. The result from one of the calls is ignored. </p>
+
+                    <h3 style={{fontStyle:"bold", fontSize:24}}>Usage  </h3>
+                    <h4 style={{fontStyle:"bold", fontSize:24}}>Adding a reducer to a component   </h4>
+                    <p style={{fontSize:20}}> Call useReducer at the top level of your component to manage state with a reducer. </p>
+
+                    <div>
+                        <CodeSnippet code={sampleCode7}  language="javascript"/>
+                    </div>
+
+                    <p style={{fontSize:20}}> useReducer returns an array with exactly two items: </p>
+                    <p style={{fontSize:20}}> 1.The current state of this state variable, initially set to the initial state you provided. </p>
+                    <p style={{fontSize:20}}> 2.The dispatch function that lets you change it in response to interaction. </p>
+                    <p style={{fontSize:20}}> To update what’s on the screen, call dispatch with an object representing what the user did, called an action: </p>
+
+                    <div>
+                        <CodeSnippet code={sampleCode8}  language="javascript"/>
+                    </div>
+
+                    <p style={{fontSize:20}}> React will pass the current state and the action to your reducer function. Your reducer will calculate and return the next state. React will store that next state, render your component with it, and update the UI. </p>
+                    <p style={{fontSize:20}}> useReducer is very similar to useState, but it lets you move the state update logic from event handlers into a single function outside of your component. Read more about choosing between useState and useReducer. </p>
                 </AccordionDetails>
                 <AccordionActions>
                     <Button>Cancel</Button>
@@ -222,8 +362,25 @@ export default ExampleComponent;
                     <h2>useCallback</h2>
                 </AccordionSummary>
                 <AccordionDetails>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+                    <p style={{fontSize:20}}> A common way to optimize re-rendering performance is to skip unnecessary work. </p>
+                    <p style={{fontSize:20}}> For example, you can tell React to reuse a cached calculation or to skip a re-render if the data has not changed since the previous render. </p>
+                    <p style={{fontSize:20}}> To skip calculations and unnecessary re-rendering, use one of these Hooks: </p>
+
+                    <p style={{fontSize:20}}> >useMemo - lets you cache the result of an expensive calculation. </p>
+
+                    <p style={{fontSize:20}}> >useCallback - lets you cache a function definition before passing it down to an optimized component. </p>
+
+                    <div>
+                        <CodeSnippet code={sampleCode6}  language="javascript"/>
+                    </div>
+                    <p style={{fontSize:20}}> Sometimes, you can’t skip re-rendering because the screen actually needs to update. </p>
+
+                    <p style={{fontSize:20}}> In that case, you can improve performance by separating blocking updates that must be synchronous (like typing into an input) from non-blocking updates which don’t need to block the user interface (like updating a chart). </p>
+                    <p style={{fontSize:20}}> To prioritize rendering, use one of these Hooks: </p>
+
+                    <p style={{fontSize:20}}> >useTransition - lets you mark a state transition as non-blocking and allow other updates to interrupt it. </p>
+                    <p style={{fontSize:20}}> >useDeferredValue - lets you defer updating a non-critical part of the UI and let other parts update first. </p>
+
                 </AccordionDetails>
                 <AccordionActions>
                     <Button>Cancel</Button>
@@ -238,10 +395,46 @@ export default ExampleComponent;
                 >
                     <h2>useMemo</h2>
                 </AccordionSummary>
-                <AccordionDetails>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    malesuada lacus ex, sit amet blandit leo lobortis eget.
-                </AccordionDetails>
+
+                    <AccordionDetails>
+                        <p style={{fontSize:20}}> useMemo is a React Hook that memoizes a computed value to optimize performance. </p>
+
+                        <div>
+                            <CodeSnippet code={sampleCodeUseMemo} language="javascript"/>
+                        </div>
+
+                        <h3 style={{fontStyle:"bold", fontSize:24}}>Reference </h3>
+                        <h3 style={{fontStyle:"bold", fontSize:24}}>useMemo(createFunction, dependencies)</h3>
+                        <p style={{fontSize:20}}> Call useMemo at the top level of your component to memoize a computed value. </p>
+
+                        <div>
+                            <CodeSnippet code={sampleCodeUseMemoReference} language="javascript"/>
+                        </div>
+
+                        <h4 style={{fontStyle:"bold", fontSize:24}}>Parameters </h4>
+                        <p style={{fontSize:20}}> >createFunction: A function that returns a computed value. </p>
+                        <p style={{fontSize:20}}> >dependencies: An array of dependencies that, when changed, will cause the computed value to be re-evaluated. </p>
+
+                        <h4 style={{fontStyle:"bold", fontSize:24}}>Returns </h4>
+                        <p style={{fontSize:20}}> useMemo returns the memoized value. </p>
+
+                        <h4 style={{fontStyle:"bold", fontSize:24}}>Caveats </h4>
+                        <p style={{fontSize:20}}> >Memoization is a performance optimization. Only use it when necessary, such as for expensive computations. </p>
+                        <p style={{fontSize:20}}> >The dependencies array should include all variables that the memoized value depends on. </p>
+                        <p style={{fontSize:20}}> >If a dependency changes, the memoized value will be recomputed. </p>
+
+                        <h3 style={{fontStyle:"bold", fontSize:24}}>Usage </h3>
+                        <h4 style={{fontStyle:"bold", fontSize:24}}>Memoizing a Computed Value</h4>
+                        <p style={{fontSize:20}}> Call useMemo at the top level of your component to memoize a computed value. </p>
+
+                        <div>
+                            <CodeSnippet code={sampleCodeUseMemoUsage} language="javascript"/>
+                        </div>
+
+                        <p style={{fontSize:20}}> useMemo memoizes the result of the function passed to it, re-computing the value only when one of its dependencies changes. This can optimize performance by avoiding unnecessary computations. </p>
+                    </AccordionDetails>
+
+
                 <AccordionActions>
                     <Button>Cancel</Button>
                     <Button>Agree</Button>
